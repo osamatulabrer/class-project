@@ -1,8 +1,13 @@
+import { Outlet } from "react-router";
+import Navbar from "../components/Navbar";
 
 
 const DashbordLayout = () => {
   return (
-    <div>DashbordLayout</div>
+    <div className="w-11/12 mx-auto">
+        <Navbar/>
+        <Outlet/>
+    </div>
   )
 }
 

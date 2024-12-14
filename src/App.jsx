@@ -12,6 +12,7 @@ function App() {
     <Route path="/" element={<DashbordLayout/>}>
       <Route index element={<HomeDashbord/>}/>
       <Route path="/create-product" element={<CreateProducts/>}/>
+      <Route path="/edit-product/:id" element={<CreateCategory/>}/>
       <Route path="/create-category" element={<CreateCategory/>}/>
       <Route path="/*" element={<Error/>}/>
 
