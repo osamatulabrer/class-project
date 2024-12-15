@@ -4,9 +4,11 @@ import { categoryFormSchema } from "../validation/ValidationSchema";
 import {
   getFirebaseDataForEdit,
   setDataToFirebase,
+  updateDataToFirebase,
 } from "../database/firebaseUtils";
 import { useNavigate, useParams } from "react-router";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const CreateCategory = () => {
   const navigate = useNavigate();
@@ -39,7 +41,15 @@ const CreateCategory = () => {
     }
   }, [params, reset]);
   const onSubmit = (data) => {
-    setDataToFirebase("categories", data); // Handles form submission by saving to Firebase.
+    if (params.id) {
+      updateDataToFirebase(`categories/${params.id}`,data)
+      toast.success('update is successful')
+      
+    }else{
+
+      setDataToFirebase("categories", data); // Handles form submission by saving to Firebase.
+      toast.success('creation is successful')
+    }
     navigate(-1);
   };
 

@@ -1,5 +1,7 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
+import { ToastContainer } from "react-toastify";
+
 
 
 const DashbordLayout = () => {
@@ -7,6 +9,7 @@ const DashbordLayout = () => {
     <div className="w-11/12 mx-auto">
         <Navbar/>
         <Outlet/>
+        <ToastContainer />
     </div>
   )
 }
