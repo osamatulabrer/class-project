@@ -50,7 +50,7 @@ const CreateCategory = () => {
       setDataToFirebase("categories", data); // Handles form submission by saving to Firebase.
       toast.success('creation is successful')
     }
-    navigate(-1);
+    navigate('/');
   };
 
   return (

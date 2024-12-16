@@ -4,13 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCategories, getCategories } from "../feature/categories/CategorySlice";
 import { NavLink } from "react-router";
 import Modal from "../components/Modal";
-import { removeDataFromFirebase } from "../database/firebaseUtils";
+import LogIn from './LogIn'
+import Register from "./Register";
+
 
 
 const HomeDashbord = () => {
   const categoriesData = useSelector((state) => state.category); // Get category state from Redux
   const [deleteCategory, setDeleteCategory] = useState(false)
   const dispatch = useDispatch();
+ 
+  
   const handleClick = (id)=> {
     setDeleteCategory(id)
   }
@@ -69,6 +73,7 @@ const HomeDashbord = () => {
           className="w-44 h-44 object-cover mx-auto"
           src={item.
             categoryImageUrl
+
             }
           alt={item.
             categoryName} // Use descriptive alt text
@@ -90,12 +95,14 @@ const HomeDashbord = () => {
         <h1 className="text-5xl font-bold text-center capitalize my-24">
           home page
         </h1>
+        <h2 className="text-2xl text-center my-7 capitalize font-semibold">categories</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {categorySectionContent} {/* Render the content dynamically */}
         </div>
       </div>
 
       <ProductCard /> {/* Render ProductCard component */}
+    
      
     </>
   );

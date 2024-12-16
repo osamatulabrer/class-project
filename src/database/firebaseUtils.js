@@ -12,7 +12,7 @@ export const getFirebaseData = async (tableName) => {
         snapshot.forEach((item) => {
           updateCategoryList.push({
             id: item.key,
-            ...item.val,
+            ...item.val(),
           });
         });
         resolve(updateCategoryList);
@@ -41,9 +41,14 @@ export const setDataToFirebase = (tableName, data) => {
 };
 
 
+
 export const updateDataToFirebase = (tableName, data) => {
   set(ref(db, tableName), data);
 };
+
+
+
+
 export const removeDataFromFirebase = (tableName) => {
  
  
@@ -56,3 +61,13 @@ export const removeDataFromFirebase = (tableName) => {
   }})
  
 };
+
+
+export const createUserProfile = async(data)=>{
+  const {name,role,id} = data;
+  set(ref(db, 'userProfile/' + id), {
+    name,
+    role
+  });
+
+}
