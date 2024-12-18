@@ -48,24 +48,53 @@ const registerUser = async (data) => {
     }
 };
 
-const logInUser = async(email,password)=>{
-try {
-    const response =await  signInWithEmailAndPassword(auth, email, password)
-    const data = response.user;
-    return data
-} catch (error) {
-    return {
-        error: true,
-        code: error.code,
-        message: error.message,
-    };
-}}
+// const logInUser = async(email,password)=>{
+// try {
+//     const response =await  signInWithEmailAndPassword(auth, email, password)
+//     const data = response.user;
+//     return {
+//         id:data.uid,
+//         email:data.email
+//     }
+// } catch (error) {
+//     return {
+//         error: true,
+//         code: error.code,
+//         message: error.message,
+//     };
+// }}
   
 
+const logInUser = async ({ email, password }) => {
+    try {
+        const response = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        const user = response.user;
+
+        return {
+            id: user.uid,
+            email: user.email,
+        };
+    } catch (error) {
+        return {
+            error: true,
+            code: error.code,
+            message: error.message,
+        };
+    }
+};
 
    
  
 
+
+
+
+
 const logOutUser = async()=>{};
 
-export { registerUser, logOutUser, logInUser, auth };
+export { registerUser, logOutUser, logInUser, auth, }

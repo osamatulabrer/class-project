@@ -22,10 +22,9 @@ const CreateCategory = () => {
   } = useForm({
     resolver: yupResolver(categoryFormSchema),
     defaultValues: {
-      categoryName: "", // Ensured default field names match validation schema.
-      categoryImageUrl: "", // Corrected field name from categoryImgURL to categoryImageUrl for consistency.
-    },
-  });
+      categoryName: "",
+      categoryImageUrl: "",
+  }});
   useEffect(() => {
     async function getData() {
       let res = await getFirebaseDataForEdit("categories/" + params.id);
@@ -47,7 +46,7 @@ const CreateCategory = () => {
       
     }else{
 
-      setDataToFirebase("categories", data); // Handles form submission by saving to Firebase.
+      setDataToFirebase("categories", data); 
       toast.success('creation is successful')
     }
     navigate('/');

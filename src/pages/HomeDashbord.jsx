@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteCategories, getCategories } from "../feature/categories/CategorySlice";
 import { NavLink } from "react-router";
 import Modal from "../components/Modal";
-import LogIn from './LogIn'
-import Register from "./Register";
+
 
 
 
@@ -15,9 +14,7 @@ const HomeDashbord = () => {
   const dispatch = useDispatch();
  
   
-  const handleClick = (id)=> {
-    setDeleteCategory(id)
-  }
+  
   const handleDelete = ()=> {
     if(deleteCategory)
    {dispatch( deleteCategories( deleteCategory))}
@@ -80,8 +77,8 @@ const HomeDashbord = () => {
         />
         <p className="text-center my-3">{item.categoryName}</p>
             <div className='flex justify-between items-center'>
-                <NavLink to={`/edit-product/${item.id}`} className="text-lg font-semibold capitalize text-white bg-[#12B862] py-1 px-4 rounded-sm">edit</NavLink>
-                <button onClick={() => handleClick(item.id)} className="text-lg font-semibold capitalize text-white bg-[#E94560] py-1 px-4 rounded-sm">delete</button>
+                <NavLink to={`/edit-category/${item.id}`} className="text-lg font-semibold capitalize text-white bg-[#12B862] py-1 px-4 rounded-sm">edit</NavLink>
+                <button onClick={() => setDeleteCategory(item.id)} className="text-lg font-semibold capitalize text-white bg-[#E94560] py-1 px-4 rounded-sm">delete</button>
             </div>
       </div>
     ));

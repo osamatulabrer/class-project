@@ -26,7 +26,7 @@ export const deleteProducts = createAsyncThunk(
   "products/deleteProducts",
   async (id) => {
     await removeDataFromFirebase("products/" + id);
-    return id; // Return deleted product ID
+    return id; 
   }
 );
 
@@ -60,12 +60,7 @@ const productsSlice = createSlice({
     // Delete product
     builder
       .addCase(deleteProducts.fulfilled, (state, action) => {
-        // const productIndex = state.products.findIndex(
-        //   (item) => item.id === action.payload
-        // );
-        // if (productIndex !== -1) {
-        //   state.products.splice(productIndex, 1); // Remove product from state
-        // }
+       
         const productIndex = state.products.findIndex(item => { return item.id === action.payload});
      
          state.products.splice(productIndex,1)
