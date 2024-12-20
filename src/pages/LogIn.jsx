@@ -1,14 +1,16 @@
 import { loginSchema } from '../validation/ValidationSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { logInUser } from '../database/firebaseAuth';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { getUserProfile } from '../database/firebaseUtils';
+import { setLoginUserDataToRedux } from '../feature/auth/AuthSlice';
 
 const LogIn = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const {
     register,
@@ -28,22 +30,22 @@ const LogIn = () => {
         
       } else {
        
-        console.log(res);
+        
         let userProfile =await getUserProfile(res.id)
-        console.log(userProfile)
         const loginUserInfo = {
           id:res.id,
           email:res.email,
           name:userProfile.name,
           role:userProfile.role
         }
-        console.log(loginUserInfo);
-        dispatch(logInUser(loginUserInfo))
+        
+        dispatch(setLoginUserDataToRedux(loginUserInfo))
         reset()
+        navigate('/dashbord')
+
         
       }
         
-      //   dispatch({ type: 'USER_LOGIN_SUCCESS', payload: res.user }); // Example action
    
    
     

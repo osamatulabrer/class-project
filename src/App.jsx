@@ -6,6 +6,7 @@ import CreateCategory from "./pages/CreateCategory"
 import Error from "./Error"
 import Register from './pages/Register'
 import LogIn from "./pages/LogIn";
+import Private from "./pages/Private"
 
 
 
@@ -14,15 +15,17 @@ function App() {
     <Routes>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<LogIn/>}/>
-    <Route path="/" element={<DashbordLayout/>}>
-      <Route index element={<HomeDashbord/>}/>
-      <Route path="/create-product" element={<CreateProducts/>}/>
-      <Route path="/edit-product/:id" element={<CreateProducts/>}/>
-      <Route path="/create-category" element={<CreateCategory/>}/>
-      <Route path="/edit-category/:id" element={<CreateCategory/>}/>
-      <Route path="/*" element={<Error/>}/>
-
-    </Route>
+      <Route  element={<Private/>}>
+        <Route path="dashbord" element={<DashbordLayout/>}>
+          <Route index element={<HomeDashbord/>}/>
+          <Route path="create-product" element={<CreateProducts/>}/>
+          <Route path="edit-product/:id" element={<CreateProducts/>}/>
+          <Route path="create-category" element={<CreateCategory/>}/>
+          <Route path="edit-category/:id" element={<CreateCategory/>}/>
+        </Route>
+          <Route path="*" element={<Error/>}/>
+      </Route>
+   
     </Routes>
   )
 }
