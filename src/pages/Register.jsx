@@ -35,6 +35,7 @@ const Register = () => {
     
   
     createUserProfile(res)
+    toast.success('you have successfully registered')
     reset()
     navigate('/login')
   }

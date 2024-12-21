@@ -1,19 +1,19 @@
+
+
+import Dashboard from "../pages/newDashbord/Dashbord";
+import Sidebar from "../pages/newDashbord/Sidebar";
+
 import { Outlet } from "react-router";
-import Navbar from "../components/Navbar";
-import { useSelector } from "react-redux";
-import Avatar from 'react-avatar';
 
 
 
 
 const DashbordLayout = () => {
-  const authUser = useSelector((state) => state.auth);
+
   return (
-    <div className="w-11/12 mx-auto">
-        <Navbar/>
-        <h1 className="text-3xl text-center">{<Avatar name={authUser.user.name} size="50" round={true} />}{authUser.user.name}</h1>
-        <Outlet/>
-       
+    <div className="p-3 flex mx-auto rounded-md min-h-screen">
+     <Sidebar/>
+    <Dashboard/>
     </div>
   )
 }

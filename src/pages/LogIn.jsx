@@ -2,11 +2,13 @@ import { loginSchema } from '../validation/ValidationSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router';
-import { logInUser } from '../database/firebaseAuth';
+import { auth, logInUser } from '../database/firebaseAuth';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { getUserProfile } from '../database/firebaseUtils';
+import { createUserProfile, getUserProfile } from '../database/firebaseUtils';
 import { setLoginUserDataToRedux } from '../feature/auth/AuthSlice';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 
 const LogIn = () => {
   const dispatch = useDispatch();
@@ -51,6 +53,35 @@ const LogIn = () => {
     
   };
 
+  const loginWithGoogle = async ()=>{
+    const provider = new GoogleAuthProvider();
+    try {
+      const res = await signInWithPopup(auth, provider)
+      const user = res.user
+      const newUser = {
+        id:user.uid,
+        name:user.displayName,
+        role:'user'
+
+      }
+
+
+      createUserProfile(newUser)
+      dispatch(
+        setLoginUserDataToRedux(
+         { ...newUser,
+          email:user.email}
+        ))
+      toast.success('you are logged in')
+      navigate('/dashbord')
+      
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   return (
     <div>
       <div className='bg-[#d9d9d9] bg-opacity-20 rounded shadow-sm max-w-lg mx-auto p-5 my-12'>
@@ -83,7 +114,7 @@ const LogIn = () => {
           </div>
           <span className='block text-center'>OR</span>
           <div className='bg-[#df0b0b] rounded-sm py-3 my-6 text-center'>
-            <button className='text-white font-semibold capitalize'>Login with Google</button>
+            <button onClick={loginWithGoogle} className='text-white font-semibold capitalize'>Login with Google</button>
           </div>
           <p className='text-center text-md'>
             Don&apos;t have an account?

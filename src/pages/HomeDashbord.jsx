@@ -98,7 +98,7 @@ const HomeDashbord = () => {
         </div>
       </div>
 
-      <ProductCard /> {/* Render ProductCard component */}
+      <ProductCard /> 
     
      
     </>
