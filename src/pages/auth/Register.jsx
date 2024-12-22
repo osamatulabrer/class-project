@@ -1,46 +1,43 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useForm } from 'react-hook-form'
-import { registerSchema } from '../validation/ValidationSchema'
-import { registerUser } from '../database/firebaseAuth'
+
+import { registerUser } from '../../database/firebaseAuth'
 import { toast } from 'react-toastify'
-import { createUserProfile } from '../database/firebaseUtils'
+import { createUserProfile } from '../../database/firebaseUtils'
 import { Link, useNavigate } from 'react-router'
+import { registerSchema } from '../../validation/ValidationSchema'
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
+      register,
+      handleSubmit,
+      formState: { errors },
+      reset,
   } = useForm({
-    resolver: yupResolver(registerSchema),
-  })
+      resolver: yupResolver(registerSchema),
+  });
 
-  const onSubmit = async(data)=> {
-    const formData = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      role: "user",
-  };
-  
-  
-  const res = await registerUser(formData);
-  if(res.error){
-    toast.error(res.message);
-    
-  }else{
-    
-  
-    createUserProfile(res)
-    toast.success('you have successfully registered')
-    reset()
-    navigate('/login')
-  }
-  
+  const onSubmit = async (data) => {
+      const formData = {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          role: "user",
+      };
+      const res = await registerUser(formData);
 
+      if (res.error) {
+          toast.error(res.code);
+      } else {
+          // already registered;
+          createUserProfile(res);
+          reset();
+          toast.success("You are successfully registered");
+          navigate("/login");
+      }
+  
    
 
        

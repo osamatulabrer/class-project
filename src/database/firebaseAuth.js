@@ -1,27 +1,13 @@
+import {
+    createUserWithEmailAndPassword,
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut,
+} from "firebase/auth";
 import app from "./firebaseConfig";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
+const auth = getAuth(app);
 
-const auth = getAuth(app)
-
-// const registerUser = async (data) => {
-//     const {name,email,password,role} = data;
-//     try {
-//         const res = await createUserWithEmailAndPassword(auth, email, password)
-//         const user = res.user
-//         return user
-//     } catch(error) {
-//         return {
-//             error:true,
-//             Code : error.code,
-//             Message : error.message
-//         }
-        
-//       };
-   
- 
-  
-// };
 const registerUser = async (data) => {
     const { name, email, password, role } = data;
 
@@ -34,11 +20,10 @@ const registerUser = async (data) => {
         const user = response.user;
 
         return {
-            id:user.uid,
+            id: user.uid,
             name,
             role,
-
-        }
+        };
     } catch (error) {
         return {
             error: true,
@@ -48,24 +33,7 @@ const registerUser = async (data) => {
     }
 };
 
-// const logInUser = async(email,password)=>{
-// try {
-//     const response =await  signInWithEmailAndPassword(auth, email, password)
-//     const data = response.user;
-//     return {
-//         id:data.uid,
-//         email:data.email
-//     }
-// } catch (error) {
-//     return {
-//         error: true,
-//         code: error.code,
-//         message: error.message,
-//     };
-// }}
-  
-
-const logInUser = async ({ email, password }) => {
+const loginUser = async ({ email, password }) => {
     try {
         const response = await signInWithEmailAndPassword(
             auth,
@@ -88,13 +56,12 @@ const logInUser = async ({ email, password }) => {
     }
 };
 
-   
- 
+const logOutUser = async () => {
+    signOut(auth)
+        .then(() => {})
+        .catch((error) => {
+            // An error happened.
+        });
+};
 
-
-
-
-
-const logOutUser = async()=>{};
-
-export { registerUser, logOutUser, logInUser, auth, }
+export { registerUser, logOutUser, loginUser, auth };

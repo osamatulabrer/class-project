@@ -18,6 +18,8 @@ export const getProducts = createAsyncThunk(
   async () => {
     const data = await getFirebaseData("products");
     return data;
+  
+    
   }
 );
 

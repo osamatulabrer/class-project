@@ -1,10 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { productFormSchema } from "../validation/ValidationSchema";
+
 import { useForm } from "react-hook-form";
 
 import { useDispatch } from "react-redux";
-import { setProducts } from "../feature/products/ProductsSlice";
+import { setProducts } from "../../../feature/products/ProductsSlice";
 import { useNavigate, useParams } from "react-router";
+import { productFormSchema } from "../../../validation/ValidationSchema";
 
 const CreateProducts = () => {
 const dispatch = useDispatch()

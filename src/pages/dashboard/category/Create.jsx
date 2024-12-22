@@ -1,14 +1,17 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { categoryFormSchema } from "../validation/ValidationSchema";
+
 import {
   getFirebaseDataForEdit,
   setDataToFirebase,
-  updateDataToFirebase,
-} from "../database/firebaseUtils";
+  updateDataFromFirebase,
+} from "../../../database/firebaseUtils";
+
+
 import { useNavigate, useParams } from "react-router";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { categoryFormSchema } from "../../../validation/ValidationSchema";
 
 const CreateCategory = () => {
   const navigate = useNavigate();
@@ -41,7 +44,7 @@ const CreateCategory = () => {
   }, [params, reset]);
   const onSubmit = (data) => {
     if (params.id) {
-      updateDataToFirebase(`categories/${params.id}`,data)
+      updateDataFromFirebase(`categories/${params.id}`,data)
       toast.success('update is successful')
       
     }else{
